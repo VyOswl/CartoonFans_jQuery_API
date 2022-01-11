@@ -1,0 +1,157 @@
+html {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-family: "Avenir";
+      line-height: 1.4;
+      color: rgb(85, 85, 85);
+      background: linear-gradient(to right, #304352, #8E9EAB, #D7D2CC);
+}
+
+body {
+      width: 100%;
+      height: 100%;
+      margin: auto;
+      text-align: center;
+      overflow: scroll;
+}
+
+header{
+      display: flex;
+      justify-content: center;
+}
+
+#carrousel{
+      height: 350px;
+      width: 600px;
+      border: solid #ffffff;
+      overflow :hidden;
+      position: relative;
+      border-radius: 40px;
+      box-shadow: 2px 4px 25px rgba(0, 0, 0, 0.1);
+}
+
+#container{
+      height: 350px;
+      width: 600px;
+}
+
+.images{
+      width:600px;
+      height:350px;
+      margin:0;
+      display:inline-block;
+      background-size:cover;
+}
+
+#main {
+      width: 600px;
+      height: 670px;
+      border-radius: 10px;
+      margin: auto;
+}
+
+.choices {
+      position: relative;
+      display: flex;
+      justify-content: center;
+}
+
+button {
+      width: 150px;
+      height: 150px;
+      margin: 30px;
+      border-radius: 50%;
+      background-size: 150px 150px;
+      transition: all 0.5s;
+      cursor: pointer;
+}
+
+button:hover {
+      box-shadow: 2px 8px 45px rgba(0, 0, 0, .55);
+      transform: translate3D(0, -2px, 0);
+      }
+
+#disney {
+      background-image: url("../img/disney.png");
+}
+
+#ghibli {
+      background-image: url("../img/ghibli.png");
+}
+
+#marvel {
+      background-image: url("../img/marvel.png");
+}
+
+#logo {
+      width: 150px;
+      justify-content: center;
+      position: relative;
+}
+
+v
+.titlebox{
+      padding-top: 18px;
+      padding-bottom: 28px;
+      box-sizing: border-box;
+      height: 120px;
+      max-width: 669px;
+      width: 50%;
+      min-width: 128px;
+      background-color: #EBEBEB;
+      margin: 0 auto;
+      margin-top: 24px;
+}
+
+.titlebox h1 {
+      font-size: 18px;
+      letter-spacing: 1.69px;
+      color: black;
+      font-family: "Kiwi Maru" !important;
+      font-weight: 400 !important;
+      margin-block-start: 0px !important;
+}
+
+.titlebox select {
+      cursor: pointer;
+      font: 400 14px "Roboto Condensed";
+      letter-spacing: 1.69px;
+      width: 100%;
+      height: 36px;
+      padding: 5px;
+}
+
+#banner {
+      height: 150px;
+}
+
+.detailscontainer{
+      padding-top: 18px;
+      padding-bottom: 28px;
+      box-sizing: border-box;
+      height: 500px;
+      max-height: 1000px;
+      width: 600px;
+      min-width: 128px;
+      background-color: #EBEBEB;
+      margin: 0 auto;
+      margin-top: 24px;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      position: relative;
+}
+
+.descriptioncontainer{
+      height: 500px;
+      background-color: transparent !important;
+      color:  black !important;
+      height: auto;
+      width: 96%;
+      margin: 0 auto;
+}
+
+.descriptioncontainer .items{
+      width: 100%;
+      font-size: 12px;
+      letter-spacing: 1.5px;
+}
