@@ -22,28 +22,36 @@
       </header>
 
       <div class="choices">
-            <button id="disney"></button>
-            <button id="ghibli"></button>
-            <button id="marvel"></button>
+            <button id="disney" onclick="displayDisney()"></button>
+            <button id="ghibli" onclick="displayGhibli()"></button>
+            <button id="marvel" onclick="displayMarvel()"></button>
       </div>
 
       <div id="main">
-            <div class="titlebox">
-                  <h1>Original title</h1>
-                  <select name="movietit" id="movietit" class="movietit">
-                        <option value="load">Loading ...</option>
-                        <option value="movie1">English Movie Title...</option>
-                  </select>
+            <div id="divDisney">
             </div>
 
-            <span></span>
+            <div id='divGhibli'>
+                  <div class="titlebox">
+                        <h1>Original title</h1>
+                        <select name="movietit" id="movietit" class="movietit">
+                              <option value="load">Loading ...</option>
+                              <option value="movie1">English Movie Title...</option>
+                        </select>
+                  </div>
 
-            <div class="detailscontainer">
-                  <div class="descriptioncontainer" id="deets"></div>
+                  <span></span>
+
+                  <div class="detailscontainer">
+                        <div class="descriptioncontainer" id="deets"></div>
+                  </div>
+
+                  <div>
+                        <img id="logo" alt="logo" src="img/logo_cartooncomics.svg">
+                  </div>
             </div>
 
-            <div>
-                  <img id="logo" alt="logo" src="img/logo_cartooncomics.svg">
+            <div id="divMarvel">
             </div>
       </div>
 </boby>

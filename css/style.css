@@ -16,6 +16,7 @@ body {
 }
 
 header{
+      margin-top: 10px;
       display: flex;
       justify-content: center;
 }
@@ -41,13 +42,6 @@ header{
       margin:0;
       display:inline-block;
       background-size:cover;
-}
-
-#main {
-      width: 600px;
-      height: 670px;
-      border-radius: 10px;
-      margin: auto;
 }
 
 .choices {
@@ -83,13 +77,25 @@ button:hover {
       background-image: url("../img/marvel.png");
 }
 
-#logo {
-      width: 150px;
-      justify-content: center;
-      position: relative;
+#main {
+      width: 600px;
+      height: 670px;
+      border-radius: 10px;
+      margin: auto;
 }
 
-v
+#divDisney {
+      display: none;
+}
+
+#divGhibli {
+      display: none;
+}
+
+#divMarvel {
+      display: none;
+}
+
 .titlebox{
       padding-top: 18px;
       padding-bottom: 28px;
@@ -154,4 +160,10 @@ v
       width: 100%;
       font-size: 12px;
       letter-spacing: 1.5px;
+}
+
+#logo {
+      width: 150px;
+      justify-content: center;
+      position: relative;
 }
