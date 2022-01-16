@@ -23,32 +23,39 @@ function defiler() {
       }
 }
 
+
+// define var of div
+var x = document.getElementById("divDisney");
+var y = document.getElementById("divGhibli");
+var z = document.getElementById("divMinions");
+
 // API Disney
 // Hide & show Disney
 function displayDisney() {
-      var x = document.getElementById("divDisney");
       if (x.style.display === "block") {
             x.style.display = "none";
       } else {
+            y.style.display = "none";
+            z.style.display = "none";
             x.style.display = "block";
       }
 }
 
-
 // API GHIBLI
 // Hide & show Ghibli
 function displayGhibli() {
-      var x = document.getElementById("divGhibli");
-      if (x.style.display === "block") {
-            x.style.display = "none";
+      if (y.style.display === "block") {
+            y.style.display = "none";
       } else {
-            x.style.display = "block";
+            x.style.display = "none";
+            z.style.display = "none";
+            y.style.display = "block";
       }
 }
 
 // Call and display API
 const localVar = {}
-const detailsContainer = document.getElementById("deets");
+const detailsContainer = document.getElementById("movieDetails");
 
 window.onload = () => {
       fetchInfoWithFilter().then((ghibliApiObject) => {
@@ -56,7 +63,6 @@ window.onload = () => {
             localVar["cloudObj"] = ghibliApiObject;
             readStudioGhibliObject(ghibliApiObject);
       });
-
 }
 
 async function fetchInfoWithFilter() {
@@ -97,7 +103,7 @@ function readStudioGhibliObject(ghibliApiObject) {
       itemsContainer.innerHTML = "";
 
       console.log(ghibliFilms);
-      console.log(objectSize);
+      //console.log(objectSize);
 
       for (i = 0; i < objectSize; i++) {
             let optionEle = document.createElement("option");
@@ -112,33 +118,41 @@ function readStudioGhibliObject(ghibliApiObject) {
       })
 };
 
-function upDateDescription(context) {
+
+function upDateDescription(statusNow) {
+      let myKey = document.createElement("p");
+      myKey.className = "items";
       detailsContainer.innerHTML = "";
-      if (context === "first") {
-            let myKey = document.createElement("p");
-            myKey.className = "items";
+
+      if (statusNow === "first") {
             let objectEntries = Object.entries(localVar.cloudObj[0]);
             let objectKeys = Object.keys(localVar.cloudObj[0]);
             document.querySelectorAll("h1")[0].innerHTML = localVar.cloudObj[0].original_title;
+            document.querySelectorAll("span")[0].innerHTML = '<img class="banner" src=' + localVar.cloudObj[0].image + '>';
 
             for (i = 0; i < objectEntries.length; i++) {
-                  let copyKey = myKey.cloneNode(true);
-                  copyKey.innerHTML = objectKeys[i].toUpperCase() + " : " + objectEntries[i][1];
-                  detailsContainer.appendChild(copyKey);
+                  if ((i > 0 && i < 4) || (i > 5 && i < 12)) {
+                        let copyKey = myKey.cloneNode(true);
+                        copyKey.innerHTML = objectKeys[i].toUpperCase() + " : " + objectEntries[i][1];
+                        detailsContainer.appendChild(copyKey);
+                  }
             }
       } else {
             let thisFilmObject = searchForFilm(document.getElementById("movietit").value);
-            let myKey = document.createElement("p");
-            myKey.className = "items";
+
+            //console.log(thisFilmObject);
+
             let objectEntries = Object.entries(thisFilmObject);
             let objectKeys = Object.keys(thisFilmObject);
             document.querySelectorAll("h1")[0].innerHTML = thisFilmObject.original_title;
-            document.querySelectorAll("span")[0].innerHTML = '<a href=' + thisFilmObject.image + '><img class="banner" src=' + thisFilmObject.image + '>';
+            document.querySelectorAll("span")[0].innerHTML = '<img class="banner" src=' + thisFilmObject.image + '>';
 
             for (i = 0; i < objectEntries.length; i++) {
-                  let copyKey = myKey.cloneNode(true);
-                  copyKey.innerHTML = objectKeys[i].toUpperCase() + " : " + objectEntries[i][1];
-                  detailsContainer.appendChild(copyKey);
+                  if ((i > 0 && i < 4) || (i > 5 && i < 12)) {
+                        let copyKey = myKey.cloneNode(true);
+                        copyKey.innerHTML = objectKeys[i].toUpperCase() + " : " + objectEntries[i][1];
+                        detailsContainer.appendChild(copyKey);
+                  }
             }
       }
 }
@@ -154,18 +168,48 @@ function searchForFilm(searchQuery) {
 };
 
 
-// API Marvel
-// Hide & show Marvel
-function displayMarvel() {
-      var x = document.getElementById("divMarvel");
-      if (x.style.display === "block") {
-            x.style.display = "none";
+// API Minion Translation
+// Hide & show Minions
+function displayMinions() {
+      if (z.style.display === "block") {
+            z.style.display = "none";
       } else {
-            x.style.display = "block";
+            x.style.display = "none";
+            y.style.display = "none";
+            z.style.display = "block";
       }
+      document.body.style.background = "linear-gradient(to right, #70e1f5, #8E9EAB, #ffd194);"
 }
 
+//Reads the input or refers to the specific html tags
+var btnTranslate = document.querySelector("#btnTranslate");
+var textData = document.querySelector("#txtInput");
+var outputData = document.querySelector("#txtOutput");
 
+//URL to fetch the API
+var serverURL = "https://api.funtranslations.com/translate/minion.json";
+
+//Add the parameters to the URL
+function getTranslatedURL(value) {
+      return serverURL + "?text=" + value;
+}
+
+//Error handling function
+function errorHandler(error) {
+      console.log("error occured", error);
+      alert("Server unavailable, try again later.");
+}
+
+//Processing - what happens when the button is clicked
+function translateClicked() {
+      console.log("clicked");
+      var textValue = textData.value;
+      outputData.innerText = "Translation in progress..."
+      fetch(getTranslatedURL(textValue))
+            .then(response => response.json())
+            .then(json => outputData.innerText = json.contents.translated)
+            .catch(errorHandler);
+}
 
 
 /* const ghibliAPI = document.getElementById("ghibli");

@@ -4,6 +4,7 @@
 
 <head>
       <meta charset="utf-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <script src="https://code.jquery.com/jquery-3.6.0.min.js"
             integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -22,14 +23,16 @@
       </header>
 
       <div class="choices">
-            <button id="disney" onclick="displayDisney()"></button>
-            <button id="ghibli" onclick="displayGhibli()"></button>
-            <button id="marvel" onclick="displayMarvel()"></button>
+            <button class="btnChoice" id="disney" onclick="displayDisney()"></button>
+            <button class="btnChoice" id="ghibli" onclick="displayGhibli()"></button>
+            <button class="btnChoice" id="minions" onclick="displayMinions()"></button>
       </div>
 
       <div id="main">
             <div id="divDisney">
             </div>
+
+
 
             <div id='divGhibli'>
                   <div class="titlebox">
@@ -43,15 +46,28 @@
                   <span></span>
 
                   <div class="detailscontainer">
-                        <div class="descriptioncontainer" id="deets"></div>
-                  </div>
-
-                  <div>
-                        <img id="logo" alt="logo" src="img/logo_cartooncomics.svg">
+                        <div class="descriptioncontainer" id="movieDetails"></div>
                   </div>
             </div>
 
-            <div id="divMarvel">
+
+
+            <div id="divMinions">
+                  <div id="minionsHeader">
+                        <p id="greet"> HAKUNA BANANA</p>
+                        <small> What a wonderful phrase </small>
+                  </div>
+
+                  <p id="translatorIntro">
+                        Traducteur pour les fans de Minions
+                        à convertir le texte en anglais au langage de banane </p>
+                  <img id="imgPotatos" src="img/potatos.gif" />
+                  <textarea id="txtInput" placeholder="Ton message en anglais..."></textarea><br>
+                  <button id="btnTranslate" onclick="translateClicked()"> Traduire </button>
+                  <div id="txtOutput">.....</div>
+            </div>
+            <div>
+                  <img id="logo" alt="logo" src="img/logo_cartooncomics.svg">
             </div>
       </div>
 </boby>
