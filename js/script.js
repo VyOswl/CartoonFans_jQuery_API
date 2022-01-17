@@ -1,5 +1,5 @@
 // Caroussel
-p = 0;
+/*p = 0;
 container = document.getElementById("container");
 container.style.width = 15 * 600 + "px";
 
@@ -20,6 +20,55 @@ function defiler() {
       } else {
             p = 0;
             container.style.transform = "translate(" + p * 600 + "px)";
+      }
+} */
+
+
+document.body.onload = function () {
+      p = 0;
+      container = document.getElementById("container");
+      container.style.width = 55 * 600 + "px";
+      gauche = document.getElementById("gauche");
+      droite = document.getElementById("droite");
+
+      for (let i = 1; i < 56; i++) {
+            div = document.createElement("div");
+            div.className = "images";
+            div.style.backgroundImage = "url('../img/image" + i + ".jfif')";
+            container.appendChild(div);
+      }
+
+      affichageBouton();
+
+      gauche.onclick = function () {
+            if (p > -52) {
+                  p--;
+                  container.style.transform = "translate(" + p * 510 + "px)";
+                  container.style.transition = "all 1s ease";
+            }
+            affichageBouton();
+      }
+
+      droite.onclick = function () {
+            if (p < 0) {
+                  p++;
+                  container.style.transform = "translate(" + p * 510 + "px)";
+                  container.style.transition = "all 1s ease";
+            }
+            affichageBouton();
+      }
+
+      function affichageBouton() {
+            if (p == -54) {
+                  gauche.style.visibility = "hidden";
+            } else {
+                  gauche.style.visibility = "visible";
+            }
+            if (p == 0) {
+                  droite.style.visibility = "hidden";
+            } else {
+                  droite.style.visibility = "visible";
+            }
       }
 }
 
