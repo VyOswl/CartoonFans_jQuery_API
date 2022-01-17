@@ -76,7 +76,7 @@ header {
 
 #droite:hover{
       opacity: 1;
-      transform:rotate(90deg) scale(1.1);
+      transform: rotate(90deg) scale(1.1);
 }
 
 .choices {
@@ -99,7 +99,7 @@ header {
 .btnChoice:hover {
       box-shadow: 2px 8px 45px rgba(0, 0, 0, .55);
       transform: /*rotate(360deg)*/ translate3D(0, -2px, 0);
-      }
+}
 
 #disney {
       background-image: url("../img/disney.gif");
@@ -210,10 +210,12 @@ header {
 
 #btnTranslate {
       margin: auto;
-      padding: 15px;
-      width: 200px;
-      transition: all 0.7s ease-in-out;
+      width: 170px;
       cursor: pointer;
+}
+
+.btnTranslate:hover {
+      transform: rotate(360deg);
 }
 
 #txtOutput {
