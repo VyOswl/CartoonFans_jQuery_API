@@ -3,7 +3,7 @@ html {
       -moz-osx-font-smoothing: grayscale;
       font-family: "Avenir";
       line-height: 1.4;
-      color: rgb(85, 85, 85);
+      color: rgb(59, 59, 59);
 }
 
 body {
@@ -43,7 +43,7 @@ header {
       display:inline-block;
       background-size:cover;
       border: solid #ffffff;
-      border-radius: 40px;
+      border-radius: 50px;
       box-shadow: 2px 4px 25px rgba(0, 0, 0, 0.1);
 }
 
@@ -170,13 +170,12 @@ header {
       padding: 25px;
       height: 500px;
       max-height: 1000px;
-      width: 565px;
+      width: 550px;
       min-width: 128px;
       background-color: #EBEBEB;
-      margin: 0 auto;
+      margin: auto;
       margin-top: 24px;
-      overflow-y: scroll;
-      overflow-x: auto;
+      overflow: hidden;
       position: relative;
       border-radius: 10px;
       color:  black !important;

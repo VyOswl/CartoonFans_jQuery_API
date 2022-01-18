@@ -71,13 +71,23 @@ function affichageBouton() {
 
 
 // define var of div
-var x = document.getElementById("divDisney");
-var y = document.getElementById("divGhibli");
-var z = document.getElementById("divMinions");
+let body = document.getElementsByTagName("body")
+let r = document.getElementById("disney");
+let s = document.getElementById("ghibli");
+let t = document.getElementById("minions");
+let x = document.getElementById("divDisney");
+let y = document.getElementById("divGhibli");
+let z = document.getElementById("divMinions");
+
 
 // API Disney
 // Hide & show Disney
 function displayDisney() {
+      //window.getComputedStyle(body).backgroundColor = "linear-gradient(to right, #70e1f5, #8E9EAB, #ffd194) !important";
+      //document.body.style.backgroundColor = 'green !important';
+      r.style.boxShadow = "rgba(116, 6, 70, 0.3) 0px 19px 38px, rgba(196, 36, 103, 0.22) 0px 15px 12px";
+      s.style.boxShadow = "none";
+      t.style.boxShadow = "none";
       if (x.style.display === "block") {
             x.style.display = "none";
       } else {
@@ -85,11 +95,15 @@ function displayDisney() {
             z.style.display = "none";
             x.style.display = "block";
       }
+
 }
 
 // API GHIBLI
 // Hide & show Ghibli
 function displayGhibli() {
+      s.style.boxShadow = "rgba(230, 50, 60, 0.3) 0px 19px 38px, rgba(246, 203, 58, 0.42) 0px 15px 12px";;
+      r.style.boxShadow = "none";
+      t.style.boxShadow = "none";
       if (y.style.display === "block") {
             y.style.display = "none";
       } else {
@@ -100,19 +114,19 @@ function displayGhibli() {
 }
 
 // Call and display API
-const localVar = {}
+const locallet = {}
 const detailsContainer = document.getElementById("movieDetails");
 
 window.onload = () => {
       fetchInfoWithFilter().then((ghibliApiObject) => {
             console.log(ghibliApiObject);
-            localVar["cloudObj"] = ghibliApiObject;
+            locallet["cloudObj"] = ghibliApiObject;
             readStudioGhibliObject(ghibliApiObject);
       });
 }
 
 async function fetchInfoWithFilter() {
-      var myRequest = new Request("https://ghibliapi.herokuapp.com/films?limit=250");
+      let myRequest = new Request("https://ghibliapi.herokuapp.com/films?limit=250");
       const returnVal = await fetch(myRequest, {
             method: 'GET',
             mode: 'cors',
@@ -128,11 +142,11 @@ async function fetchInfoWithFilter() {
                   return response.text();
             })
             .then(function (myBlob) {
-                  var cloudObject = JSON.parse(myBlob);
+                  let cloudObject = JSON.parse(myBlob);
                   return cloudObject;
             })
             .catch(function (error) {
-                  var p = document.createElement('p');
+                  let p = document.createElement('p');
                   p.appendChild(
                         document.createTextNode('Error: ' + error.message)
                   );
@@ -171,10 +185,10 @@ function upDateDescription(statusNow) {
       detailsContainer.innerHTML = "";
 
       if (statusNow === "first") {
-            let objectEntries = Object.entries(localVar.cloudObj[0]);
-            let objectKeys = Object.keys(localVar.cloudObj[0]);
-            document.querySelectorAll("h1")[0].innerHTML = localVar.cloudObj[0].original_title;
-            document.querySelectorAll("span")[0].innerHTML = '<img class="banner" src=' + localVar.cloudObj[0].image + '>';
+            let objectEntries = Object.entries(locallet.cloudObj[0]);
+            let objectKeys = Object.keys(locallet.cloudObj[0]);
+            document.querySelectorAll("h1")[0].innerHTML = locallet.cloudObj[0].original_title;
+            document.querySelectorAll("span")[0].innerHTML = '<img class="banner" src=' + locallet.cloudObj[0].image + '>';
 
             for (i = 0; i < objectEntries.length; i++) {
                   if ((i > 0 && i < 4) || (i > 5 && i < 12)) {
@@ -205,9 +219,9 @@ function upDateDescription(statusNow) {
 
 function searchForFilm(searchQuery) {
       let obj = { "Not": "Found" };
-      for (i = 0; i < localVar.cloudObj.length; i++) {
-            if (searchQuery === localVar.cloudObj[i].title) {
-                  obj = localVar.cloudObj[i];
+      for (i = 0; i < locallet.cloudObj.length; i++) {
+            if (searchQuery === locallet.cloudObj[i].title) {
+                  obj = locallet.cloudObj[i];
             }
       }
       return obj;
@@ -217,6 +231,9 @@ function searchForFilm(searchQuery) {
 // API Minion Translation
 // Hide & show Minions
 function displayMinions() {
+      t.style.boxShadow = "rgba(240, 157, 175, 0.3) 0px 19px 38px, rgba(251, 255, 3, 0.404) 0px 15px 12px";
+      r.style.boxShadow = "none";
+      s.style.boxShadow = "none";
       if (z.style.display === "block") {
             z.style.display = "none";
       } else {
@@ -228,12 +245,12 @@ function displayMinions() {
 }
 
 //Reads the input or refers to the specific html tags
-var btnTranslate = document.querySelector("#btnTranslate");
-var textData = document.querySelector("#txtInput");
-var outputData = document.querySelector("#txtOutput");
+let btnTranslate = document.querySelector("#btnTranslate");
+let textData = document.querySelector("#txtInput");
+let outputData = document.querySelector("#txtOutput");
 
 //URL to fetch the API
-var serverURL = "https://api.funtranslations.com/translate/minion.json";
+let serverURL = "https://api.funtranslations.com/translate/minion.json";
 
 //Add the parameters to the URL
 function getTranslatedURL(value) {
@@ -249,7 +266,7 @@ function errorHandler(error) {
 //Processing - what happens when the button is clicked
 function translateClicked() {
       console.log("clicked");
-      var textValue = textData.value;
+      let textValue = textData.value;
       outputData.innerText = "Translation in progress..."
       fetch(getTranslatedURL(textValue))
             .then(response => response.json())
@@ -278,12 +295,12 @@ container.setAttribute('class', 'container');
 
 app.appendChild(container);
 
-var request = new XMLHttpRequest();
+let request = new XMLHttpRequest();
 request.open('GET', 'https://ghibliapi.herokuapp.com/films', true);
 request.onload = function () {
 
       // Begin accessing JSON data here
-      var data = JSON.parse(this.response);
+      let data = JSON.parse(this.response);
       if (request.status >= 200 && request.status < 400) {
             data.forEach(movie => {
                   const card = document.createElement('div');
