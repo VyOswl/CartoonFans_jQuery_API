@@ -71,7 +71,7 @@ function affichageBouton() {
 
 
 // define var of div
-let body = document.getElementsByTagName("body")
+let body = document.getElementById("body");
 let r = document.getElementById("disney");
 let s = document.getElementById("ghibli");
 let t = document.getElementById("minions");
@@ -83,20 +83,46 @@ let z = document.getElementById("divMinions");
 // API Disney
 // Hide & show Disney
 function displayDisney() {
-      //window.getComputedStyle(body).backgroundColor = "linear-gradient(to right, #70e1f5, #8E9EAB, #ffd194) !important";
+      body.backgroundColor = "linear-gradient(to right, #70e1f5, #8E9EAB, #ffd194) !important";
       //document.body.style.backgroundColor = 'green !important';
       r.style.boxShadow = "rgba(116, 6, 70, 0.3) 0px 19px 38px, rgba(196, 36, 103, 0.22) 0px 15px 12px";
       s.style.boxShadow = "none";
       t.style.boxShadow = "none";
-      if (x.style.display === "block") {
+      if (x.style.display === "grid") {
             x.style.display = "none";
       } else {
             y.style.display = "none";
             z.style.display = "none";
-            x.style.display = "block";
+            x.style.display = "grid";
       }
-
+      getDisneyChar();
 }
+
+
+function getDisneyChar() {
+      $.ajax({
+            url: "https://api.disneyapi.dev/characters",
+            type: "GET",
+            datatype: "json",
+            success: function (response) {
+                  console.log(response);
+
+                  for (const ele of response.data) {
+                        let charImg = $('<img>').attr({ src: ele.imageUrl, id: 'charImg' });
+                        console.log(ele.imageUrl);
+                        let charName = $('<p>' + ele.name + '</p>');
+                        let disneyFilm = $('<p></p>').text(ele.films);
+                        let disneyTvShow = $('<p></p>').text(ele.tvShows);
+                        $('#charInfo').append(charImg).append(charName).append(disneyFilm).append(disneyTvShow);
+                  }
+            },
+            error: function () {
+                  console.log("");
+            }
+
+      })
+}
+
 
 // API GHIBLI
 // Hide & show Ghibli
@@ -117,13 +143,13 @@ function displayGhibli() {
 const locallet = {}
 const detailsContainer = document.getElementById("movieDetails");
 
-window.onload = () => {
-      fetchInfoWithFilter().then((ghibliApiObject) => {
-            console.log(ghibliApiObject);
-            locallet["cloudObj"] = ghibliApiObject;
-            readStudioGhibliObject(ghibliApiObject);
-      });
-}
+
+fetchInfoWithFilter().then((ghibliApiObject) => {
+      //console.log(ghibliApiObject);
+      locallet["cloudObj"] = ghibliApiObject;
+      readStudioGhibliObject(ghibliApiObject);
+});
+
 
 async function fetchInfoWithFilter() {
       let myRequest = new Request("https://ghibliapi.herokuapp.com/films?limit=250");
@@ -260,14 +286,14 @@ function getTranslatedURL(value) {
 //Error handling function
 function errorHandler(error) {
       console.log("error occured", error);
-      alert("Server unavailable, try again later.");
+      alert("Le serveur est indisponible, veuillez réessayer plus tard.");
 }
 
 //Processing - what happens when the button is clicked
 function translateClicked() {
       console.log("clicked");
       let textValue = textData.value;
-      outputData.innerText = "Translation in progress..."
+      outputData.innerText = "Traduction en cours..."
       fetch(getTranslatedURL(textValue))
             .then(response => response.json())
             .then(json => outputData.innerText = json.contents.translated)
