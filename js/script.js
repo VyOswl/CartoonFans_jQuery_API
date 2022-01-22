@@ -1,45 +1,38 @@
 // Caroussel
-/*p = 0;
-container = document.getElementById("container");
-container.style.width = 15 * 600 + "px";
-
-
-for (let i = 1; i < 16; i++) {
-      div = document.createElement("div");
-      div.className = "images";
-      div.style.backgroundImage = "url('img/image" + i + ".jfif')";
-      container.appendChild(div);
-}
-
-setInterval(defiler, 1500);
-
-function defiler() {
-      p--;
-      if (p > -15) {
-            container.style.transform = "translate(" + p * 600 + "px)";
-      } else {
-            p = 0;
-            container.style.transform = "translate(" + p * 600 + "px)";
-      }
-} */
-
-p = 0;
+p = -26;
 container = document.getElementById("container");
 container.style.width = 55 * 600 + "px";
 gauche = document.getElementById("gauche");
 droite = document.getElementById("droite");
+container.style.transform = "translate(" + p * 510 + "px)";
+
 
 for (let i = 1; i < 56; i++) {
       div = document.createElement("div");
       div.className = "images";
       div.style.backgroundImage = "url('img/image" + i + ".jfif')";
+      div.setAttribute("id", i);
+
       container.appendChild(div);
 }
 
 affichageBouton();
 
+function affichageBouton() {
+      if (p == -57) {
+            gauche.style.visibility = "hidden";
+      } else {
+            gauche.style.visibility = "visible";
+      }
+      if (p == -5) {
+            droite.style.visibility = "hidden";
+      } else {
+            droite.style.visibility = "visible";
+      }
+}
+
 gauche.onclick = function () {
-      if (p > -52) {
+      if (p > -57) {
             p--;
             container.style.transform = "translate(" + p * 510 + "px)";
             container.style.transition = "all 1s ease";
@@ -48,7 +41,7 @@ gauche.onclick = function () {
 }
 
 droite.onclick = function () {
-      if (p < 0) {
+      if (p < -5) {
             p++;
             container.style.transform = "translate(" + p * 510 + "px)";
             container.style.transition = "all 1s ease";
@@ -56,21 +49,8 @@ droite.onclick = function () {
       affichageBouton();
 }
 
-function affichageBouton() {
-      if (p == -54) {
-            gauche.style.visibility = "hidden";
-      } else {
-            gauche.style.visibility = "visible";
-      }
-      if (p == 0) {
-            droite.style.visibility = "hidden";
-      } else {
-            droite.style.visibility = "visible";
-      }
-}
 
-
-// define var of div
+// define var of div for APIs
 let body = document.getElementById("body");
 let r = document.getElementById("disney");
 let s = document.getElementById("ghibli");
@@ -78,6 +58,15 @@ let t = document.getElementById("minions");
 let x = document.getElementById("divDisney");
 let y = document.getElementById("divGhibli");
 let z = document.getElementById("divMinions");
+const charInfo = document.getElementById("charInfo");
+const empty = (element) => {
+      element.innerText = "";
+};
+
+function capitalize1st(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1);
+}
+//console.log(capitalize1st('testing'));
 
 
 // API Disney
@@ -95,31 +84,74 @@ function displayDisney() {
             z.style.display = "none";
             x.style.display = "grid";
       }
-      getDisneyChar();
+      //getDisneyChar();
 }
 
 
-function getDisneyChar() {
+function searchDisneyChar() {
+      let userInput = capitalize1st(document.querySelector("#txtInput1").value);
+      console.log(userInput);
+      for (let i = 1; i < 150; i++) {
+            $.ajax({
+                  url: "https://api.disneyapi.dev/characters?page=" + i,
+                  type: "GET",
+                  datatype: "json",
+                  success: function (response) {
+                        let find = false;
+                        for (const element of response.data) {
+                              if (element.name === userInput) {
+                                    find = true;
+                                    let charImg = $('<img>').attr({ src: element.imageUrl, id: 'charImg' });
+                                    //console.log(element.imageUrl);
+                                    let charName = $('<h3>' + element.name + '</h3>');
+                                    let disneyFilm = $('<p>' + "Films : " + element.films + '</p>')
+                                    let disneyTvShow = $('<p>' + "TV shows : " + element.tvShows + '</p>');
+                                    empty(charInfo);
+                                    $('#charInfo').append(charImg).append(charName);
+                                    if (element.films.length !== 0) {
+                                          $('#charInfo').append(disneyFilm);
+                                    } else if (element.tvShows !== 0) {
+                                          $('#charInfo').append(disneyTvShow);
+                                    }
+                              }
+                        }
+                  },
+                  error: function () {
+                        console.log("Erreur");
+                  }
+            })
+      }
+      if (find == false) {
+            $('#charInfo').append("Pas de personnage de ce nom dans notre API / Erreur d'orthographe ...");
+      }
+}
+
+
+function getRandomDisneyChar() {
+      RandomNumber = Math.floor(Math.random() * 7437);
       $.ajax({
-            url: "https://api.disneyapi.dev/characters",
+            url: "https://api.disneyapi.dev/characters/" + RandomNumber,
             type: "GET",
             datatype: "json",
             success: function (response) {
-                  console.log(response);
-
-                  for (const ele of response.data) {
-                        let charImg = $('<img>').attr({ src: ele.imageUrl, id: 'charImg' });
-                        console.log(ele.imageUrl);
-                        let charName = $('<p>' + ele.name + '</p>');
-                        let disneyFilm = $('<p></p>').text(ele.films);
-                        let disneyTvShow = $('<p></p>').text(ele.tvShows);
-                        $('#charInfo').append(charImg).append(charName).append(disneyFilm).append(disneyTvShow);
+                  //console.log(response);
+                  let charImg = $('<img>').attr({ src: response.imageUrl, id: 'charImg' });
+                  //console.log(response.imageUrl);
+                  let charName = $('<h3>' + response.name + '</h3>');
+                  let disneyFilm = $('<p>' + "Films : " + response.films + '</p>');
+                  let disneyTvShow = $('<p>' + " TV shows: " + response.tvShows + '</p>');
+                  empty(charInfo);
+                  $('#charInfo').append(charImg).append(charName);
+                  if (response.films.length !== 0) {
+                        $('#charInfo').append(disneyFilm);
+                  }
+                  if (response.tvShows.length !== 0) {
+                        $('#charInfo').append(disneyTvShow);
                   }
             },
             error: function () {
-                  console.log("");
+                  console.log("Erreur");
             }
-
       })
 }
 
@@ -149,7 +181,6 @@ fetchInfoWithFilter().then((ghibliApiObject) => {
       locallet["cloudObj"] = ghibliApiObject;
       readStudioGhibliObject(ghibliApiObject);
 });
-
 
 async function fetchInfoWithFilter() {
       let myRequest = new Request("https://ghibliapi.herokuapp.com/films?limit=250");
@@ -188,7 +219,7 @@ function readStudioGhibliObject(ghibliApiObject) {
       const itemsContainer = document.getElementById("movietit");
       itemsContainer.innerHTML = "";
 
-      console.log(ghibliFilms);
+      //console.log(ghibliFilms);
       //console.log(objectSize);
 
       for (i = 0; i < objectSize; i++) {
@@ -203,7 +234,6 @@ function readStudioGhibliObject(ghibliApiObject) {
             upDateDescription("update");
       })
 };
-
 
 function upDateDescription(statusNow) {
       let myKey = document.createElement("p");
@@ -252,6 +282,7 @@ function searchForFilm(searchQuery) {
       }
       return obj;
 };
+
 
 
 // API Minion Translation

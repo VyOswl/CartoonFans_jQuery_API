@@ -1,12 +1,12 @@
 html {
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      font-family: "Avenir";
+      font-family: "Avenir" !important;
       line-height: 1.4;
       color: rgb(59, 59, 59);
 }
 
-#body {
+body {
       width: 100%;
       height: 100%;
       margin: auto;
@@ -39,12 +39,11 @@ header {
       margin-top: 10px;
       width:500px;
       height:350px;
-      margin-right:5px;
+      margin: 7px;
       display:inline-block;
       background-size:cover;
-      border: solid #ffffff;
       border-radius: 50px;
-      box-shadow: 2px 4px 25px rgba(0, 0, 0, 0.1);
+      box-shadow: 2px 4px 25px rgba(38, 44, 46, 0.516);
 }
 
 .btnCaro {
@@ -132,8 +131,60 @@ header {
       display: none;
 }
 
+#twoBtnDisney {
+      display: block;
+}
+
+#searchName {
+      float: left;
+}
+
+#randomChar {
+      float: right;
+}
+
+.clickHere {
+      width: 50px;
+}
+
+.btnDisney {
+      width: 150px;
+      height: 150px;
+      border: none;
+      border-radius: 10%;
+      background-size: 150px 150px;
+      transition: all 0.5s ease-in-out;
+      cursor: pointer;
+}
+
+.btnDisney:hover {
+      border: solid darken(white, 10%);
+      box-shadow: white 3px 5px 10px;
+}
+
+#btnDisney1 {
+      background-image: url("../img/merlin.jpg");
+}
+
+#btnDisney2 {
+      background-image: url("../img/merlin1.jpg");
+}
+
+#txtInput1 {
+      padding: 20px;
+}
+
 #charImg {
-      width: 200px;
+      margin-top: 20px;
+      width: 400px;
+      border-radius: 50%;
+      border: solid 2px rgba(255, 255, 255, 0.219);
+}
+
+#charInfo {
+      margin-top: 20px;
+      background-color: #e0feff70;
+      border-radius: 10px;
 }
 
 .titlebox {
@@ -215,9 +266,10 @@ header {
       margin: auto;
       width: 170px;
       cursor: pointer;
+      transition: all 0.5s ease-in-out;
 }
 
-.btnTranslate:hover {
+#btnTranslate:hover {
       transform: rotate(360deg);
 }
 
